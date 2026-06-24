@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>centricAI — Enterprise AI Suite</title>
+<style>
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ── Orange Brand ── */
+  --og:         #F5631A;
+  --og-lt:      #FF8A4C;
+  --og-dk:      #C94A0E;
+  --og-bg:      rgba(245,99,26,.07);
+  --og-bd:      rgba(245,99,26,.20);
+
+  /* ── Dark (Hero / Journey / Contact 전용) ── */
+  --dark-bg:    #0C0C18;
+  --dark-card:  #14142A;
+  --dark-card2: #1C1C34;
+  --border-dk:  rgba(245,99,26,.18);
+  --border-lt:  rgba(255,255,255,.07);
+  --text-hi:    #FFFFFF;
+  --text-md:    rgba(255,255,255,.70);
+  --text-lo:    rgba(255,255,255,.38);
+
+  /* ── Light (White 기반) ── */
+  --white:      #FFFFFF;
+  --off-white:  #F5F5F7;
+  --gray-200:   #E5E5EA;
+  --gray-txt:   #1D1D1F;
+  --gray-sub:   #6E6E73;
+  --shadow-sm:  0 2px 10px rgba(0,0,0,.06);
+  --shadow-md:  0 8px 28px rgba(0,0,0,.10);
+  --shadow-og:  0 8px 28px rgba(245,99,26,.18);
+
+  --radius-sm:  8px;
+  --radius-md:  14px;
+  --radius-lg:  22px;
+}
+
+html { scroll-behavior: smooth; font-size: 18px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+               'Segoe UI', 'Malgun Gothic', sans-serif;
+  background: var(--white);
+  color: var(--gray-txt);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.65;
+}
+
+/* ════════════════════════════════
+   NAV
+   ════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 200; height: 60px;
+  background: rgba(255,255,255,.93);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--gray-200);
+  display: flex; align-items: center;
+  padding: 0 5vw; gap: 2.5rem;
+}
+
+.logo-wrap { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+
+.nav-links { display: flex; gap: 0; list-style: none; flex: 1; }
+.nav-links li a {
+  display: block; padding: .42rem .9rem;
+  font-size: .82rem; color: var(--gray-sub);
+  text-decoration: none; letter-spacing: .01em;
+  transition: color .18s; border-radius: 6px;
+}
+.nav-links li a:hover { color: var(--og); }
+
+.nav-right { display: flex; align-items: center; gap: .75rem; }
+
+.btn-nav-ghost {
+  font-size: .8rem; color: var(--gray-txt);
+  border: 1px solid var(--gray-200); border-radius: 6px;
+  padding: .38rem .95rem; text-decoration: none;
+  transition: border-color .18s, color .18s;
+}
+.btn-nav-ghost:hover { border-color: var(--og); color: var(--og); }
+
+.btn-nav-fill {
+  font-size: .8rem; font-weight: 700; color: #fff;
+  background: var(--og); border-radius: 6px;
+  padding: .42rem 1.1rem; text-decoration: none;
+  transition: background .18s, box-shadow .18s;
+}
+.btn-nav-fill:hover { background: var(--og-dk); box-shadow: var(--shadow-og); }
+
+/* ════════════════════════════════
+   HERO
+   ════════════════════════════════ */
+#hero {
+  background: linear-gradient(140deg, #0A0A18 0%, #10101E 45%, #180C06 100%);
+  min-height: 100vh;
+  padding: 140px 5vw 100px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center;
+  position: relative; overflow: hidden;
+}
+
+#hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 55% at 15% 45%, rgba(245,99,26,.15) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 50% at 90% 25%, rgba(245,99,26,.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-left { position: relative; z-index: 1; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-size: .7rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--og-lt);
+  border: 1px solid rgba(245,99,26,.35); border-radius: 100px;
+  padding: .3rem .9rem; margin-bottom: 1.6rem;
+}
+.hero-badge::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--og);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:.35; transform:scale(.65); }
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 4vw, 3.55rem);
+  font-weight: 700; line-height: 1.18;
+  letter-spacing: -.6px; color: var(--text-hi);
+  margin-bottom: 1.3rem;
+}
+.hero-title .accent { color: var(--og-lt); }
+
+.hero-sub {
+  font-size: 1.02rem; color: var(--text-md);
+  line-height: 1.78; max-width: 470px;
+  margin-bottom: 2.2rem;
+}
+
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+.btn-primary {
+  background: var(--og); color: #fff;
+  font-weight: 700; font-size: .92rem;
+  padding: .82rem 1.9rem; border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background .18s, transform .12s, box-shadow .18s;
+  display: inline-block;
+}
+.btn-primary:hover {
+  background: var(--og-dk); transform: translateY(-2px);
+  box-shadow: var(--shadow-og);
+}
+
+.btn-ghost {
+  color: rgba(255,255,255,.75); font-size: .9rem;
+  padding: .82rem 1.7rem; border-radius: var(--radius-sm);
+  border: 1px solid rgba(255,255,255,.22);
+  text-decoration: none;
+  transition: border-color .18s, color .18s;
+  display: inline-block;
+}
+.btn-ghost:hover { border-color: var(--og-lt); color: var(--og-lt); }
+
+/* Hero right mockup */
+.hero-right { position: relative; z-index: 1; }
+
+.mockup-shell {
+  background: var(--dark-card);
+  border: 1px solid var(--border-lt);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,.55);
+}
+
+.mockup-bar {
+  background: rgba(0,0,0,.35);
+  border-bottom: 1px solid var(--border-lt);
+  padding: .7rem 1rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
+.d1 { background: #FF5F57; } .d2 { background: #FEBC2E; } .d3 { background: #28C840; }
+.mockup-title { font-size: .72rem; color: var(--text-lo); margin-left: .5rem; }
+
+.mockup-body {
+  display: grid; grid-template-columns: 160px 1fr;
+  height: 340px;
+}
+
+.mockup-sidebar {
+  background: rgba(0,0,0,.2);
+  border-right: 1px solid var(--border-lt);
+  padding: .8rem 0;
+}
+.sb-item {
+  padding: .5rem 1rem; font-size: .72rem;
+  color: var(--text-lo); transition: color .15s;
+}
+.sb-item.active {
+  color: var(--og-lt);
+  background: rgba(245,99,26,.08);
+}
+.sb-section {
+  font-size: .6rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text-lo);
+  padding: .8rem 1rem .3rem; opacity: .55;
+}
+
+.mockup-main {
+  padding: 1rem 1.2rem;
+  display: flex; flex-direction: column; gap: .75rem;
+  overflow: hidden;
+}
+.chat-bubble {
+  max-width: 82%; padding: .6rem .95rem;
+  border-radius: 10px; font-size: .72rem; line-height: 1.5;
+}
+.chat-user {
+  background: var(--og); color: #fff;
+  align-self: flex-end; border-bottom-right-radius: 3px;
+}
+.chat-ai {
+  background: var(--dark-card2); color: var(--text-md);
+  align-self: flex-start; border-bottom-left-radius: 3px;
+  border: 1px solid var(--border-lt);
+}
+.chat-tag {
+  display: inline-block; font-size: .6rem; font-weight: 600;
+  color: var(--og-lt); background: rgba(245,99,26,.12);
+  border-radius: 4px; padding: .1rem .4rem; margin-bottom: .3rem;
+}
+.mockup-input {
+  margin-top: auto;
+  background: rgba(0,0,0,.25); border: 1px solid var(--border-lt);
+  border-radius: 8px; padding: .55rem .9rem;
+  font-size: .7rem; color: var(--text-lo);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+/* ════════════════════════════════
+   SECTION COMMON
+   ════════════════════════════════ */
+section { padding: 100px 5vw; }
+
+.sec-eyebrow {
+  font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--og);
+  margin-bottom: .68rem;
+}
+.sec-title {
+  font-size: clamp(1.85rem, 2.8vw, 2.55rem);
+  font-weight: 700; letter-spacing: -.45px;
+  line-height: 1.22; color: var(--gray-txt);
+  margin-bottom: .82rem;
+}
+.sec-sub {
+  font-size: .98rem; color: var(--gray-sub);
+  max-width: 560px; line-height: 1.75;
+}
+.sec-header { margin-bottom: 3.5rem; }
+
+/* ════════════════════════════════
+   WHY
+   ════════════════════════════════ */
+#why { background: var(--off-white); }
+#why .sec-title   { color: var(--gray-txt); }
+#why .sec-sub     { color: var(--gray-sub); }
+
+.pain-grid {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 1.25rem;
+}
+.pain-card {
+  background: var(--white); border-radius: var(--radius-md);
+  padding: 2rem 1.6rem;
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s, transform .2s;
+}
+.pain-card:hover {
+  box-shadow: 0 10px 30px rgba(0,0,0,.1);
+  transform: translateY(-3px);
+}
+.pain-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  background: linear-gradient(135deg, rgba(245,99,26,.12), rgba(245,99,26,.04));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; margin-bottom: 1.2rem;
+}
+.pain-card h3 {
+  font-size: .93rem; font-weight: 700; color: var(--gray-txt);
+  margin-bottom: .45rem; line-height: 1.4;
+}
+.pain-card p {
+  font-size: .83rem; color: var(--gray-sub); line-height: 1.65;
+}
+
+/* ════════════════════════════════
+   JOURNEY — 역할 중심 명칭
+   ════════════════════════════════ */
+#journey {
+  background: linear-gradient(160deg, #0A0A18 0%, #140E06 100%);
+}
+#journey .sec-title  { color: var(--text-hi); }
+#journey .sec-sub    { color: var(--text-md); }
+#journey .sec-eyebrow { color: var(--og-lt); }
+
+.journey-grid {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 1.5rem; position: relative;
+}
+.journey-grid::before {
+  content: ''; position: absolute;
+  top: 31px;
+  left: calc(12.5% + 17px);
+  right: calc(12.5% + 17px);
+  height: 1px;
+  background: linear-gradient(to right,
+    transparent,
+    rgba(245,99,26,.45) 20%,
+    rgba(245,99,26,.45) 80%,
+    transparent);
+}
+
+.j-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(245,99,26,.15);
+  border-radius: var(--radius-md); padding: 1.9rem 1.5rem;
+  position: relative; z-index: 1;
+  transition: border-color .2s, background .2s;
+}
+.j-card:hover {
+  border-color: rgba(245,99,26,.5);
+  background: rgba(245,99,26,.06);
+}
+.j-num {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(245,99,26,.15);
+  border: 1px solid rgba(245,99,26,.4);
+  color: var(--og-lt); font-size: .72rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem;
+}
+.j-stage {
+  font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--og-lt);
+  margin-bottom: .25rem;
+}
+.j-card h3 {
+  font-size: 1.06rem; font-weight: 700; color: var(--text-hi);
+  margin-bottom: .6rem;
+}
+.j-card p {
+  font-size: .83rem; color: var(--text-md);
+  line-height: 1.65; margin-bottom: 1rem;
+}
+.j-product {
+  font-size: .72rem; font-weight: 600;
+  color: var(--og-lt); opacity: .75;
+}
+
+/* ════════════════════════════════
+   PRODUCTS — 역할 중심 명칭
+   ════════════════════════════════ */
+#products { background: var(--white); }
+
+.product-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 3rem; align-items: center;
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+.product-row:first-child { padding-top: 0; }
+.product-row:last-child  { border-bottom: none; padding-bottom: 0; }
+.product-row.reverse { direction: rtl; }
+.product-row.reverse > * { direction: ltr; }
+
+.prod-stage {
+  font-size: .7rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--og);
+  margin-bottom: .5rem;
+}
+.prod-text h3 {
+  font-size: 1.75rem; font-weight: 700;
+  letter-spacing: -.4px; margin-bottom: .8rem;
+  color: var(--gray-txt); line-height: 1.22;
+}
+.prod-text p {
+  font-size: .93rem; color: var(--gray-sub);
+  line-height: 1.78; margin-bottom: 1.4rem;
+}
+.tag-row { display: flex; flex-wrap: wrap; gap: .45rem; }
+.tag {
+  font-size: .7rem; font-weight: 600;
+  color: var(--og-dk); background: var(--og-bg);
+  border: 1px solid var(--og-bd); border-radius: 100px;
+  padding: .25rem .75rem;
+}
+
+/* UI Preview */
+.prod-visual {
+  background: var(--dark-card); border: 1px solid var(--border-lt);
+  border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0,0,0,.22);
+}
+.pv-header {
+  background: rgba(0,0,0,.3); border-bottom: 1px solid var(--border-lt);
+  padding: .65rem 1rem;
+  display: flex; align-items: center; gap: .75rem;
+}
+.pv-dot { width: 8px; height: 8px; border-radius: 50%; }
+.pd1 { background: #FF5F57; } .pd2 { background: #FEBC2E; } .pd3 { background: #28C840; }
+.pv-label { font-size: .68rem; color: var(--text-lo); margin-left: .3rem; }
+.pv-body {
+  padding: 1.2rem; min-height: 200px;
+  display: flex; flex-direction: column; gap: .6rem;
+}
+.pv-search-bar {
+  background: rgba(0,0,0,.25); border: 1px solid var(--border-lt);
+  border-radius: 8px; padding: .6rem .9rem;
+  font-size: .75rem; color: var(--text-lo);
+  display: flex; align-items: center; gap: .5rem;
+}
+.pv-result {
+  background: rgba(0,0,0,.15); border: 1px solid var(--border-lt);
+  border-radius: 8px; padding: .8rem;
+}
+.pv-result-title {
+  font-size: .75rem; font-weight: 600; color: var(--text-hi);
+  margin-bottom: .3rem;
+}
+.pv-result-body { font-size: .68rem; color: var(--text-md); line-height: 1.5; }
+.pv-cite { font-size: .62rem; color: var(--og-lt); margin-top: .3rem; }
+
+.pv-agent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+.pv-agent-card {
+  background: rgba(0,0,0,.2); border: 1px solid var(--border-lt);
+  border-radius: 8px; padding: .8rem;
+  display: flex; align-items: flex-start; gap: .5rem;
+}
+.pv-agent-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+.pv-agent-name { font-size: .72rem; font-weight: 600; color: var(--text-hi); margin-bottom: .15rem; }
+.pv-agent-desc { font-size: .62rem; color: var(--text-lo); line-height: 1.4; }
+
+.pv-tabs { display: flex; gap: .4rem; margin-bottom: .5rem; }
+.pv-tab {
+  font-size: .68rem; padding: .25rem .7rem;
+  border-radius: 100px; border: 1px solid var(--border-lt);
+  color: var(--text-lo);
+}
+.pv-tab.on { background: var(--og); color: #fff; border-color: var(--og); }
+
+.pv-stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: .6rem; }
+.pv-stat {
+  background: rgba(0,0,0,.2); border: 1px solid var(--border-lt);
+  border-radius: 8px; padding: .75rem; text-align: center;
+}
+.pv-stat-num { font-size: 1.2rem; font-weight: 700; color: var(--og-lt); line-height: 1; margin-bottom: .3rem; }
+.pv-stat-lbl { font-size: .62rem; color: var(--text-lo); }
+.pv-permission-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .45rem .6rem; border-radius: 6px; background: rgba(0,0,0,.12);
+}
+.pv-per-name { font-size: .7rem; color: var(--text-md); }
+.pv-per-badge { font-size: .6rem; font-weight: 700; padding: .15rem .5rem; border-radius: 4px; }
+.badge-on  { background: rgba(40,200,80,.15); color: #5fd98a; }
+.badge-off { background: rgba(255,255,255,.06); color: var(--text-lo); }
+
+/* ════════════════════════════════
+   CAPABILITIES
+   ════════════════════════════════ */
+#capabilities { background: var(--off-white); }
+#capabilities .sec-title { color: var(--gray-txt); }
+#capabilities .sec-sub   { color: var(--gray-sub); }
+
+.cap-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; }
+.cap-card {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md); padding: 2.2rem;
+  display: flex; gap: 1.3rem; align-items: flex-start;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s, transform .2s;
+}
+.cap-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.cap-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--og-dk), var(--og));
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; flex-shrink: 0;
+}
+.cap-card h3 { font-size: .96rem; font-weight: 700; color: var(--gray-txt); margin-bottom: .45rem; }
+.cap-card p  { font-size: .83rem; color: var(--gray-sub); line-height: 1.68; }
+
+/* ════════════════════════════════
+   CUSTOMER TYPES
+   ════════════════════════════════ */
+#customers { background: var(--white); }
+#customers .sec-title { color: var(--gray-txt); }
+#customers .sec-sub   { color: var(--gray-sub); }
+
+.customer-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1.1rem;
+}
+.cust-card {
+  background: var(--off-white); border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md); padding: 1.8rem;
+  transition: box-shadow .2s, border-color .2s;
+}
+.cust-card:hover {
+  box-shadow: 0 6px 22px rgba(245,99,26,.1);
+  border-color: var(--og-bd);
+}
+.cust-icon { font-size: 1.4rem; margin-bottom: .75rem; display: block; }
+.cust-type { font-size: .85rem; font-weight: 700; color: var(--gray-txt); margin-bottom: .5rem; }
+.cust-recommend { font-size: .78rem; color: var(--og); font-weight: 600; margin-bottom: .45rem; }
+.cust-desc { font-size: .8rem; color: var(--gray-sub); line-height: 1.6; }
+
+/* ════════════════════════════════
+   PROCESS
+   ════════════════════════════════ */
+#process { background: var(--off-white); text-align: center; }
+#process .sec-sub { margin: 0 auto 3rem; text-align: center; }
+#process .sec-title { color: var(--gray-txt); }
+
+.process-steps {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 0; position: relative;
+  max-width: 900px; margin: 0 auto;
+}
+.process-steps::before {
+  content: ''; position: absolute;
+  top: 22px; left: 12.5%; right: 12.5%;
+  height: 1px; background: var(--gray-200);
+}
+.proc-step {
+  display: flex; flex-direction: column; align-items: center;
+  gap: .8rem; padding: 0 1rem; position: relative; z-index: 1;
+}
+.proc-num {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--white); border: 2px solid var(--og-bd);
+  color: var(--og); font-weight: 700; font-size: .88rem;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+.proc-step h4 { font-size: .9rem; font-weight: 700; color: var(--gray-txt); }
+.proc-step p  { font-size: .8rem; color: var(--gray-sub); line-height: 1.55; text-align: center; }
+
+/* ════════════════════════════════
+   FAQ
+   ════════════════════════════════ */
+#faq { background: var(--white); }
+#faq .sec-title { color: var(--gray-txt); }
+
+.faq-list { max-width: 780px; display: flex; flex-direction: column; gap: .75rem; }
+.faq-item {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md); overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.faq-q {
+  padding: 1.3rem 1.6rem; font-size: .93rem; font-weight: 600;
+  color: var(--gray-txt); cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  user-select: none; transition: background .15s;
+}
+.faq-q:hover { background: var(--off-white); }
+.faq-q::after {
+  content: '+'; font-size: 1.3rem; color: var(--og);
+  font-weight: 300; transition: transform .22s;
+}
+.faq-item.open .faq-q::after { transform: rotate(45deg); }
+.faq-item.open .faq-q { background: rgba(245,99,26,.04); }
+.faq-a {
+  display: none; padding: 0 1.6rem 1.3rem;
+  font-size: .86rem; color: var(--gray-sub); line-height: 1.75;
+}
+.faq-item.open .faq-a { display: block; }
+
+/* ════════════════════════════════
+   CONTACT
+   ════════════════════════════════ */
+#contact {
+  background: linear-gradient(145deg, #0A0A18 0%, #180C06 100%);
+  text-align: center;
+}
+#contact .sec-title { color: var(--text-hi); }
+#contact .sec-sub   { color: var(--text-md); margin: 0 auto 2.8rem; }
+
+.contact-wrap {
+  max-width: 620px; margin: 0 auto;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(245,99,26,.2);
+  border-radius: var(--radius-lg); padding: 2.8rem;
+  text-align: left;
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.fg { display: flex; flex-direction: column; gap: .4rem; margin-bottom: .2rem; }
+.fg label { font-size: .76rem; font-weight: 600; color: var(--text-md); letter-spacing: .03em; }
+.fg input, .fg select, .fg textarea {
+  background: rgba(0,0,0,.22); border: 1px solid var(--border-lt);
+  border-radius: var(--radius-sm); padding: .68rem .95rem;
+  color: var(--text-hi); font-size: .86rem; font-family: inherit;
+  outline: none; transition: border-color .18s; width: 100%;
+}
+.fg input::placeholder, .fg textarea::placeholder { color: var(--text-lo); }
+.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--og); }
+.fg select option { background: #14142A; }
+.fg textarea { resize: vertical; min-height: 90px; }
+.fg-full { grid-column: 1 / -1; }
+.form-submit {
+  width: 100%; background: var(--og); color: #fff;
+  font-weight: 700; font-size: .92rem; padding: .9rem;
+  border: none; border-radius: var(--radius-sm);
+  cursor: pointer; margin-top: .75rem; font-family: inherit;
+  transition: background .18s, transform .12s, box-shadow .18s;
+}
+.form-submit:hover {
+  background: var(--og-dk); transform: translateY(-1px);
+  box-shadow: var(--shadow-og);
+}
+
+/* ════════════════════════════════
+   FOOTER
+   ════════════════════════════════ */
+footer {
+  background: var(--gray-txt); padding: 3rem 5vw;
+}
+.footer-top {
+  display: flex; align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem; margin-bottom: 2.2rem; flex-wrap: wrap;
+}
+.footer-brand p {
+  font-size: .8rem; color: rgba(255,255,255,.4);
+  margin-top: .65rem; max-width: 260px; line-height: 1.65;
+}
+.footer-nav { display: flex; gap: 3rem; flex-wrap: wrap; }
+.footer-col h4 {
+  font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(255,255,255,.35);
+  margin-bottom: .8rem;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+.footer-col ul a {
+  font-size: .8rem; color: rgba(255,255,255,.45);
+  text-decoration: none; transition: color .18s;
+}
+.footer-col ul a:hover { color: var(--og-lt); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.07);
+  padding-top: 1.5rem;
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: .75rem;
+}
+.footer-copy { font-size: .73rem; color: rgba(255,255,255,.28); }
+.footer-links { display: flex; gap: 1.25rem; list-style: none; }
+.footer-links a {
+  font-size: .73rem; color: rgba(255,255,255,.28);
+  text-decoration: none; transition: color .18s;
+}
+.footer-links a:hover { color: var(--og-lt); }
+
+/* ════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════ */
+@media (max-width: 1024px) {
+  .pain-grid     { grid-template-columns: repeat(2,1fr); }
+  .customer-grid { grid-template-columns: repeat(2,1fr); }
+  .process-steps { grid-template-columns: repeat(2,1fr); }
+  .process-steps::before { display: none; }
+}
+@media (max-width: 860px) {
+  #hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-right { display: none; }
+  .product-row { grid-template-columns: 1fr; }
+  .product-row.reverse { direction: ltr; }
+  .journey-grid { grid-template-columns: repeat(2,1fr); }
+  .journey-grid::before { display: none; }
+  .cap-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .journey-grid { grid-template-columns: 1fr; }
+  .customer-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .contact-wrap { padding: 1.8rem 1.4rem; }
+  footer { text-align: center; }
+  .footer-top { flex-direction: column; align-items: center; }
+  .footer-nav  { justify-content: center; }
+  .footer-bottom { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════
+     NAVIGATION
+     ══════════════════════ -->
+<nav>
+  <a href="#" class="logo-wrap" aria-label="centricAI 홈">
+    <svg width="130" height="32" viewBox="0 0 130 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="2"  y="14" width="3" height="8"  rx="1.5" fill="#F5631A"/>
+      <rect x="7"  y="10" width="3" height="16" rx="1.5" fill="#F5631A"/>
+      <rect x="12" y="6"  width="3" height="20" rx="1.5" fill="#F5631A"/>
+      <rect x="17" y="10" width="3" height="14" rx="1.5" fill="#F5631A"/>
+      <rect x="22" y="14" width="3" height="8"  rx="1.5" fill="#F5631A"/>
+      <rect x="28" y="15" width="4"  height="2"  rx="1"   fill="#F5631A" opacity=".45"/>
+      <text x="36" y="21" font-family="'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif"
+            font-size="13.5" font-weight="500" fill="#1D1D1F" letter-spacing="-.2">centric</text>
+      <text x="96" y="21" font-family="'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif"
+            font-size="13.5" font-weight="700" fill="#F5631A" letter-spacing="-.2">AI</text>
+    </svg>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#why">도입 배경</a></li>
+    <li><a href="#journey">도입 단계</a></li>
+    <li><a href="#products">핵심 기능</a></li>
+    <li><a href="#capabilities">특징</a></li>
+    <li><a href="#customers">고객 유형</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <a href="#contact" class="btn-nav-ghost">문의하기</a>
+    <a href="#contact" class="btn-nav-fill">PoC 상담</a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════
+     HERO
+     ══════════════════════ -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Enterprise AI Suite</div>
+    <h1 class="hero-title">
+      기업 AI 도입의<br>
+      <span class="accent">시작과 완성</span>을<br>
+      하나의 Suite로
+    </h1>
+    <p class="hero-sub">
+      지식 검색에서 시작해 AI 모델 구성, 업무 자동화,
+      운영 인프라까지 — 기업의 AI 도입 여정 전체를 단계적으로 지원합니다.
+    </p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">기능 살펴보기</a>
+      <a href="#contact" class="btn-ghost">PoC 상담 신청 →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="mockup-shell">
+      <div class="mockup-bar">
+        <div class="mockup-dot d1"></div>
+        <div class="mockup-dot d2"></div>
+        <div class="mockup-dot d3"></div>
+        <span class="mockup-title">centricAI — Agentic Chat</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-sidebar">
+          <div class="sb-item active">💬 새 채팅</div>
+          <div class="sb-item">⬡ 워크스페이스</div>
+          <div class="sb-item">◫ 오버뷰</div>
+          <div class="sb-item">⏱ 스케줄</div>
+          <div class="sb-section">CentricWave works</div>
+          <div class="sb-item">1. 설치 및 운영</div>
+          <div class="sb-item">2. 라이선스</div>
+          <div class="sb-item">3. CAI 개발가이드</div>
+          <div class="sb-item">4. B2B 교육</div>
+        </div>
+        <div class="mockup-main">
+          <div class="chat-bubble chat-user">사내 내규집에서 연차 신청 방법 알려줘</div>
+          <div class="chat-bubble chat-ai">
+            <div class="chat-tag">📚 지식 검색됨</div>
+            연차 신청은 사내 HR 시스템에서 진행합니다. 신청 기한은 사용일 기준 3일 전이며, 반차는 당일 오전 9시까지 가능합니다.
+          </div>
+          <div class="chat-bubble chat-user">SQL로 이번 달 수주 현황 뽑아줘</div>
+          <div class="chat-bubble chat-ai">
+            <div class="chat-tag">⚡ 업무 자동화 실행 중</div>
+            쿼리를 생성하고 있습니다…
+          </div>
+          <div class="mockup-input">
+            <span>메시지 보내기</span>
+            <span style="color:var(--og-lt);font-size:.65rem;">⚡ Agentic · Auto</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     WHY
+     ══════════════════════ -->
+<section id="why">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Why centricAI</div>
+    <h2 class="sec-title">기업은 AI를 도입하고 싶지만,<br>이런 문제에 막힙니다</h2>
+  </div>
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="pain-icon">📂</div>
+      <h3>문서는 많지만 찾기 어렵다</h3>
+      <p>사내 자료가 부서별로 흩어져 있어 필요한 정보를 찾는 데 과도한 시간이 소요됩니다.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🤖</div>
+      <h3>ChatGPT는 쓰지만 회사 기준으로 답하지 못한다</h3>
+      <p>외부 AI는 내부 문서와 업무 기준을 모릅니다. 사내 지식 기반의 정확한 답변이 필요합니다.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🔒</div>
+      <h3>보안 때문에 내부 문서를 올리기 어렵다</h3>
+      <p>민감 데이터를 외부 AI 서비스에 입력하는 것에 보안·컴플라이언스 우려가 있습니다.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🔄</div>
+      <h3>어떤 AI부터, 어떻게 시작해야 할지 모른다</h3>
+      <p>반복 업무는 많지만 어떤 자동화를 어떤 순서로 도입해야 효과가 나는지 판단이 어렵습니다.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     JOURNEY — 역할 중심 명칭
+     ══════════════════════ -->
+<section id="journey">
+  <div class="sec-header">
+    <div class="sec-eyebrow">AI 도입 단계</div>
+    <h2 class="sec-title">지식 검색 → AI 모델 구성 → 업무 자동화 → 운영 인프라</h2>
+    <p class="sec-sub">하나의 Suite로 AI 도입 여정 전체를 완성합니다.</p>
+  </div>
+  <div class="journey-grid">
+    <div class="j-card">
+      <div class="j-num">01</div>
+      <div class="j-stage">Organize</div>
+      <h3>지식 검색</h3>
+      <p>흩어진 사내 문서와 데이터를 AI가 검색·활용할 수 있는 업무 지식으로 전환합니다. 질문만으로 답변과 출처를 즉시 확인합니다.</p>
+      <div class="j-product">→ 지식 검색 포털 (Portal)</div>
+    </div>
+    <div class="j-card">
+      <div class="j-num">02</div>
+      <div class="j-stage">Activate</div>
+      <h3>AI 모델 구성</h3>
+      <p>정리된 지식을 기반으로 업무 목적에 맞는 AI 모델을 직접 구성하고 사용자에게 배포합니다.</p>
+      <div class="j-product">→ 워크스페이스 + Named User</div>
+    </div>
+    <div class="j-card">
+      <div class="j-num">03</div>
+      <div class="j-stage">Automate</div>
+      <h3>업무 자동화</h3>
+      <p>문서 요약, 데이터 분석, 도면 검토 등 반복 업무를 Agent가 수행합니다. 담당자 검토를 전제로 처리 시간을 줄입니다.</p>
+      <div class="j-product">→ Agent 패키지 (AP01~AP10)</div>
+    </div>
+    <div class="j-card">
+      <div class="j-num">04</div>
+      <div class="j-stage">Integrate</div>
+      <h3>운영 인프라</h3>
+      <p>온프레미스 또는 Private Cloud 환경에 구축하고, 권한 관리·Audit Log·모니터링으로 안전하게 운영합니다.</p>
+      <div class="j-product">→ Docker / Kubernetes + 구축 용역</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     PRODUCTS — 역할 중심 명칭
+     ══════════════════════ -->
+<section id="products">
+  <div class="sec-header">
+    <div class="sec-eyebrow">핵심 기능</div>
+    <h2 class="sec-title">단계별로 원하는 기능을 선택하세요</h2>
+    <p class="sec-sub">도입 여정에 맞춰 필요한 기능부터 시작하고, 검증된 범위를 단계적으로 확장합니다.</p>
+  </div>
+
+  <!-- 01 지식 검색 -->
+  <div class="product-row">
+    <div class="prod-text">
+      <div class="prod-stage">01 · 지식 검색 — Organize</div>
+      <h3>사내 문서를 AI가<br>답하는 지식으로</h3>
+      <p>매뉴얼, 규정, 보고서를 AI가 이해하는 지식으로 전환합니다. 직원은 질문만으로 필요한 답변과 출처 문서를 즉시 확인할 수 있습니다.</p>
+      <div class="tag-row">
+        <span class="tag">RAG 기반 문서 검색</span>
+        <span class="tag">Document QA</span>
+        <span class="tag">Knowledge Base</span>
+        <span class="tag">권한 기반 검색</span>
+        <span class="tag">Vision OCR</span>
+      </div>
+    </div>
+    <div class="prod-visual">
+      <div class="pv-header">
+        <div class="pv-dot pd1"></div><div class="pv-dot pd2"></div><div class="pv-dot pd3"></div>
+        <span class="pv-label">지식 검색 — Document QA</span>
+      </div>
+      <div class="pv-body">
+        <div class="pv-search-bar">🔍 &nbsp; 연차 신청 절차가 어떻게 되나요?</div>
+        <div class="pv-result">
+          <div class="pv-result-title">📄 인사규정 제7조 — 연차 유급휴가</div>
+          <div class="pv-result-body">연차휴가는 1년 이상 근속 시 15일이 부여되며, HR 시스템에서 사용일 3일 전까지 신청해야 합니다. 반차는 당일 오전 9시까지 가능합니다.</div>
+          <div class="pv-cite">📎 출처: 사내인사규정.pdf · p.12</div>
+        </div>
+        <div class="pv-result">
+          <div class="pv-result-title">📄 복리후생 안내 — 경조사 휴가</div>
+          <div class="pv-result-body">결혼·출산·가족 경조사 시 별도 경조 휴가 지급. 세부 사항은 총무팀 문의.</div>
+          <div class="pv-cite">📎 출처: 복리후생안내서.pdf · p.4</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 AI 모델 구성 -->
+  <div class="product-row reverse">
+    <div class="prod-text">
+      <div class="prod-stage">02 · AI 모델 구성 — Activate</div>
+      <h3>업무 목적에 맞는<br>AI 환경을 직접 설계</h3>
+      <p>프롬프트, 지식 기반, 도구를 조합해 부서별·업무별 맞춤 AI 모델과 대화 환경을 구성합니다. 워크스페이스에서 모델, 지식기반, 프롬프트, 도구를 직접 관리합니다.</p>
+      <div class="tag-row">
+        <span class="tag">커스텀 모델 빌더</span>
+        <span class="tag">Prompt Studio</span>
+        <span class="tag">Knowledge Binding</span>
+        <span class="tag">Tool Connector</span>
+        <span class="tag">워크플로우</span>
+      </div>
+    </div>
+    <div class="prod-visual">
+      <div class="pv-header">
+        <div class="pv-dot pd1"></div><div class="pv-dot pd2"></div><div class="pv-dot pd3"></div>
+        <span class="pv-label">AI 모델 구성 — 워크스페이스</span>
+      </div>
+      <div class="pv-body">
+        <div class="pv-tabs">
+          <div class="pv-tab on">모델</div>
+          <div class="pv-tab">지식 기반</div>
+          <div class="pv-tab">프롬프트</div>
+          <div class="pv-tab">도구</div>
+        </div>
+        <div class="pv-agent-grid">
+          <div class="pv-agent-card">
+            <div class="pv-agent-icon">🏭</div>
+            <div>
+              <div class="pv-agent-name">CAD BOM Agent</div>
+              <div class="pv-agent-desc">도면 BOM 자동 추출</div>
+            </div>
+          </div>
+          <div class="pv-agent-card">
+            <div class="pv-agent-icon">📊</div>
+            <div>
+              <div class="pv-agent-name">SQL Agent</div>
+              <div class="pv-agent-desc">자연어 DB 질의</div>
+            </div>
+          </div>
+          <div class="pv-agent-card">
+            <div class="pv-agent-icon">📝</div>
+            <div>
+              <div class="pv-agent-name">회의록 Agent</div>
+              <div class="pv-agent-desc">전사·요약·액션 추출</div>
+            </div>
+          </div>
+          <div class="pv-agent-card">
+            <div class="pv-agent-icon">⚡</div>
+            <div>
+              <div class="pv-agent-name">Agentic 모드</div>
+              <div class="pv-agent-desc">자율 다단계 실행</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 업무 자동화 -->
+  <div class="product-row">
+    <div class="prod-text">
+      <div class="prod-stage">03 · 업무 자동화 — Automate</div>
+      <h3>반복 업무를 AI가<br>대신 처리합니다</h3>
+      <p>문서 요약, 데이터 분석, 도면 검토 등 반복 업무를 업무별 AI 전문가가 보조합니다. 담당자의 검토를 전제로 처리 시간을 줄이고 누락을 방지합니다.</p>
+      <div class="tag-row">
+        <span class="tag">Document Summary</span>
+        <span class="tag">SQL Agent</span>
+        <span class="tag">CAD BOM Agent</span>
+        <span class="tag">CAD Compare</span>
+        <span class="tag">회의록 Agent</span>
+        <span class="tag">RFP Writer</span>
+      </div>
+    </div>
+    <div class="prod-visual">
+      <div class="pv-header">
+        <div class="pv-dot pd1"></div><div class="pv-dot pd2"></div><div class="pv-dot pd3"></div>
+        <span class="pv-label">업무 자동화 — SQL Agent</span>
+      </div>
+      <div class="pv-body">
+        <div class="pv-search-bar">💬 &nbsp; 이번 달 수주건수 업체별로 집계해줘</div>
+        <div class="pv-result">
+          <div class="pv-result-title">⚡ SQL 생성 완료</div>
+          <div class="pv-result-body" style="font-family:monospace;font-size:.65rem;color:#7dd3fc;">
+            SELECT vendor, COUNT(*) AS orders<br>
+            FROM orders WHERE month = '2026-06'<br>
+            GROUP BY vendor ORDER BY orders DESC
+          </div>
+        </div>
+        <div class="pv-result">
+          <div class="pv-result-title">📊 결과 — 상위 3개 업체</div>
+          <div class="pv-result-body">삼성정밀 38건 · 현대부품 27건 · LG소재 21건<br>
+          <span style="color:var(--og-lt);font-size:.62rem;">Excel 다운로드 · 차트 보기</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 운영 인프라 -->
+  <div class="product-row reverse">
+    <div class="prod-text">
+      <div class="prod-stage">04 · 운영 인프라 — Integrate</div>
+      <h3>보안·권한·운영을<br>하나의 콘솔에서</h3>
+      <p>모델 연결, 사용자 권한, Audit Log, 온프레미스 운영까지 기업 AI 서비스 전체를 하나의 관리자 패널에서 통제합니다.</p>
+      <div class="tag-row">
+        <span class="tag">Model Gateway</span>
+        <span class="tag">사용자·그룹 권한</span>
+        <span class="tag">Audit Log</span>
+        <span class="tag">온프레미스 지원</span>
+        <span class="tag">Analytics</span>
+        <span class="tag">라이선스 관리</span>
+      </div>
+    </div>
+    <div class="prod-visual">
+      <div class="pv-header">
+        <div class="pv-dot pd1"></div><div class="pv-dot pd2"></div><div class="pv-dot pd3"></div>
+        <span class="pv-label">운영 인프라 — 관리자 패널</span>
+      </div>
+      <div class="pv-body">
+        <div class="pv-stat-row">
+          <div class="pv-stat"><div class="pv-stat-num">21</div><div class="pv-stat-lbl">사용자</div></div>
+          <div class="pv-stat"><div class="pv-stat-num">15</div><div class="pv-stat-lbl">모델</div></div>
+          <div class="pv-stat"><div class="pv-stat-num">157</div><div class="pv-stat-lbl">채팅</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.4rem;margin-top:.2rem;">
+          <div class="pv-permission-row">
+            <span class="pv-per-name">웹 검색</span>
+            <span class="pv-per-badge badge-on">허용</span>
+          </div>
+          <div class="pv-permission-row">
+            <span class="pv-per-name">파일 업로드</span>
+            <span class="pv-per-badge badge-on">허용</span>
+          </div>
+          <div class="pv-permission-row">
+            <span class="pv-per-name">외부 API 호출</span>
+            <span class="pv-per-badge badge-off">그룹별 제한</span>
+          </div>
+          <div class="pv-permission-row">
+            <span class="pv-per-name">Audit Log</span>
+            <span class="pv-per-badge badge-on">기록 중</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     CAPABILITIES
+     ══════════════════════ -->
+<section id="capabilities">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Core Capabilities</div>
+    <h2 class="sec-title">centricAI Suite가 선택받는 이유</h2>
+  </div>
+  <div class="cap-grid">
+    <div class="cap-card">
+      <div class="cap-icon">🔗</div>
+      <div>
+        <h3>통합 플랫폼 — 하나의 Suite</h3>
+        <p>지식 검색 · AI 모델 구성 · 업무 자동화 · 운영 인프라가 하나의 Suite에서 유기적으로 작동합니다. 별도 솔루션을 여러 개 운영하는 복잡성을 제거합니다.</p>
+      </div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon">✅</div>
+      <div>
+        <h3>내부 데이터 신뢰성</h3>
+        <p>내부 문서와 DB를 기반으로 출처가 명확한 답변을 생성합니다. 구조화 DB와 비정형 문서 간 맥락을 연결해 정확도를 높입니다.</p>
+      </div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon">🔐</div>
+      <div>
+        <h3>보안·거버넌스</h3>
+        <p>온프레미스 또는 Private Cloud 기반으로 데이터 외부 유출을 차단합니다. 권한 체계와 Audit Log로 모든 접근 이력을 투명하게 통제합니다.</p>
+      </div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon">📈</div>
+      <div>
+        <h3>지속 최적화</h3>
+        <p>업무 피드백을 반영해 AI 모델이 시간이 지날수록 기업 업무에 더욱 정교하게 최적화됩니다. 에이전트는 살아있는 업무 전문가로 성장합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     CUSTOMER TYPES
+     ══════════════════════ -->
+<section id="customers">
+  <div class="sec-header">
+    <div class="sec-eyebrow">고객 유형별 제안</div>
+    <h2 class="sec-title">우리 회사는 어디서 시작해야 할까요?</h2>
+    <p class="sec-sub">도입 상황에 맞는 시작점을 제안합니다.</p>
+  </div>
+  <div class="customer-grid">
+    <div class="cust-card">
+      <span class="cust-icon">🏢</span>
+      <div class="cust-type">AI 도입을 처음 검토하는 기업</div>
+      <div class="cust-recommend">지식 검색 → 운영 인프라</div>
+      <div class="cust-desc">사내 문서 기반 질의응답부터 시작해 빠르게 PoC 효과를 검증합니다.</div>
+    </div>
+    <div class="cust-card">
+      <span class="cust-icon">💬</span>
+      <div class="cust-type">ChatGPT를 업무에 이미 활용 중인 기업</div>
+      <div class="cust-recommend">지식 검색 + AI 모델 구성</div>
+      <div class="cust-desc">외부 AI를 내부 지식 기반으로 전환해 업무 기준에 맞는 답변 환경을 구성합니다.</div>
+    </div>
+    <div class="cust-card">
+      <span class="cust-icon">🔁</span>
+      <div class="cust-type">반복 업무 자동화 니즈가 큰 기업</div>
+      <div class="cust-recommend">업무 자동화 → AI 모델 구성</div>
+      <div class="cust-desc">문서 요약, SQL 분석, 도면 검토 등 규칙이 명확한 업무부터 Agent로 전환합니다.</div>
+    </div>
+    <div class="cust-card">
+      <span class="cust-icon">🔒</span>
+      <div class="cust-type">IT·보안 요구가 강한 기업</div>
+      <div class="cust-recommend">운영 인프라 → 지식 검색</div>
+      <div class="cust-desc">온프레미스 구성, 권한 관리, Audit Log를 선행 확보한 후 기능을 단계적으로 확장합니다.</div>
+    </div>
+    <div class="cust-card">
+      <span class="cust-icon">⚙️</span>
+      <div class="cust-type">제조·엔지니어링 기업</div>
+      <div class="cust-recommend">업무 자동화 — CAD Agent 특화</div>
+      <div class="cust-desc">CAD BOM 추출, 도면 비교, SQL 기반 생산 데이터 분석을 패키지로 도입합니다.</div>
+    </div>
+    <div class="cust-card">
+      <span class="cust-icon">🛠</span>
+      <div class="cust-type">자체 AI 환경을 구축하고 싶은 기업</div>
+      <div class="cust-recommend">AI 모델 구성 → 운영 인프라</div>
+      <div class="cust-desc">프롬프트, 지식 기반, 도구 연결을 직접 구성해 고유한 AI 업무 환경을 설계합니다.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     PROCESS
+     ══════════════════════ -->
+<section id="process">
+  <div class="sec-header">
+    <div class="sec-eyebrow">도입 프로세스</div>
+    <h2 class="sec-title">PoC를 통해 가능성을 먼저 검증합니다</h2>
+    <p class="sec-sub">처음부터 전체 자동화가 아닌, 검증된 업무부터 단계적으로 확장합니다.</p>
+  </div>
+  <div class="process-steps">
+    <div class="proc-step">
+      <div class="proc-num">1</div>
+      <h4>사전 진단</h4>
+      <p>AI 도입 대상 업무 선정 및 현황 파악</p>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">2</div>
+      <h4>PoC 범위 정의</h4>
+      <p>검증 가능한 범위와 기준 지표 설정</p>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">3</div>
+      <h4>보안·인프라 검토</h4>
+      <p>온프레미스/클라우드 구성 및 권한 설계</p>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">4</div>
+      <h4>단계적 확장</h4>
+      <p>검증 완료 업무부터 운영 전환 및 확대</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     FAQ
+     ══════════════════════ -->
+<section id="faq">
+  <div class="sec-header">
+    <div class="sec-eyebrow">FAQ</div>
+    <h2 class="sec-title">자주 묻는 질문</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item open">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">내부 문서가 외부로 유출될 가능성은 없습니까?</div>
+      <div class="faq-a">centricAI Suite는 온프레미스 또는 Private Cloud 환경으로 구축할 수 있습니다. 이 경우 문서, 질의, 응답 데이터는 고객사 내부 통제 범위 안에서 운영됩니다. 사용자 권한 관리와 Audit Log를 통해 모든 접근 이력을 추적·관리할 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">AI 답변을 그대로 업무에 사용해도 됩니까?</div>
+      <div class="faq-a">업무 담당자의 검토를 전제로 활용하는 것이 적절합니다. centricAI Suite는 정보 탐색과 초안 작성 시간을 줄이는 역할을 하며, 최종 판단은 담당자가 수행하는 구조를 권장합니다. 출처·페이지 인용을 함께 제공해 검토 효율을 높입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">기존 ERP, 그룹웨어 시스템과 연동됩니까?</div>
+      <div class="faq-a">연동 가능성은 고객사의 시스템 구조, API 제공 여부, 보안 정책에 따라 달라집니다. centricAI Suite는 Tool Connector 및 MCP 기반 확장 구조를 통해 연동을 검토할 수 있으며, 실제 적용 범위는 PoC 단계에서 함께 확인합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">비용 절감 효과를 보장할 수 있습니까?</div>
+      <div class="faq-a">도입 즉시 비용 절감을 보장하기보다, 반복적인 문서 검색·요약·데이터 조회 업무에서 시간 절감 가능성을 PoC로 먼저 검증합니다. 이후 검증된 업무부터 단계적으로 확장해 ROI를 명확하게 산정할 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">영구 라이선스와 구독 라이선스의 차이는 무엇입니까?</div>
+      <div class="faq-a">영구 라이선스는 1회 구매 후 계속 사용할 수 있으며, 구독 라이선스는 연간 계약 방식으로 초기 비용 부담이 낮습니다. 포털 Standard 기준 영구 3,000만원, 구독 780만원/년이며, Named User는 영구 300만원, 구독 78만원/년입니다. 도입 규모와 예산에 맞는 방식을 PoC 상담 시 함께 검토합니다.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     CONTACT
+     ══════════════════════ -->
+<section id="contact">
+  <div class="sec-header">
+    <div class="sec-eyebrow" style="color:var(--og-lt);">Contact</div>
+    <h2 class="sec-title">centricAI Suite와 함께<br>AI 도입을 시작하세요</h2>
+    <p class="sec-sub">PoC 상담부터 시작합니다. 부담 없이 문의해 주세요.</p>
+  </div>
+  <div class="contact-wrap">
+    <div class="form-grid">
+      <div class="fg">
+        <label>회사명 *</label>
+        <input type="text" placeholder="(주)회사명">
+      </div>
+      <div class="fg">
+        <label>담당자명 *</label>
+        <input type="text" placeholder="홍길동">
+      </div>
+      <div class="fg">
+        <label>이메일 *</label>
+        <input type="email" placeholder="name@company.com">
+      </div>
+      <div class="fg">
+        <label>연락처</label>
+        <input type="tel" placeholder="010-0000-0000">
+      </div>
+      <div class="fg fg-full">
+        <label>관심 단계</label>
+        <select>
+          <option value="">선택해 주세요</option>
+          <option>01 지식 검색 — 사내 문서를 AI 지식으로 전환</option>
+          <option>02 AI 모델 구성 — 업무 목적별 AI 모델 설계</option>
+          <option>03 업무 자동화 — Agent 기반 반복 업무 처리</option>
+          <option>04 운영 인프라 — 온프레미스·보안·권한 관리</option>
+          <option>전체 Suite 도입 검토</option>
+        </select>
+      </div>
+      <div class="fg fg-full">
+        <label>문의 내용</label>
+        <textarea placeholder="도입 배경, 현재 환경, 주요 Pain Point 등을 자유롭게 적어주세요."></textarea>
+      </div>
+    </div>
+    <button class="form-submit" type="button">PoC 상담 신청하기</button>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     FOOTER
+     ══════════════════════ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo-wrap" style="text-decoration:none;" aria-label="centricAI">
+        <svg width="112" height="28" viewBox="0 0 112 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2"  y="12" width="2.5" height="6"  rx="1.25" fill="#F5631A"/>
+          <rect x="6"  y="9"  width="2.5" height="12" rx="1.25" fill="#F5631A"/>
+          <rect x="10" y="5"  width="2.5" height="17" rx="1.25" fill="#F5631A"/>
+          <rect x="14" y="9"  width="2.5" height="12" rx="1.25" fill="#F5631A"/>
+          <rect x="18" y="12" width="2.5" height="6"  rx="1.25" fill="#F5631A"/>
+          <rect x="23" y="13" width="3"   height="1.5" rx=".75" fill="#F5631A" opacity=".45"/>
+          <text x="30" y="19" font-family="'Segoe UI','Malgun Gothic',sans-serif"
+                font-size="12" font-weight="500" fill="rgba(255,255,255,0.65)">centric</text>
+          <text x="80" y="19" font-family="'Segoe UI','Malgun Gothic',sans-serif"
+                font-size="12" font-weight="700" fill="#F5631A">AI</text>
+        </svg>
+      </a>
+      <p>기업의 AI 도입 여정을 단계적으로 지원하는 Enterprise AI Suite</p>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <h4>핵심 기능</h4>
+        <ul>
+          <li><a href="#products">지식 검색</a></li>
+          <li><a href="#products">AI 모델 구성</a></li>
+          <li><a href="#products">업무 자동화</a></li>
+          <li><a href="#products">운영 인프라</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>도입 단계</h4>
+        <ul>
+          <li><a href="#journey">Organize</a></li>
+          <li><a href="#journey">Activate</a></li>
+          <li><a href="#journey">Automate</a></li>
+          <li><a href="#journey">Integrate</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>회사</h4>
+        <ul>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">문의하기</a></li>
+          <li><a href="#contact">PoC 상담</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 centricAI. All rights reserved. | Confidential</div>
+    <ul class="footer-links">
+      <li><a href="#">개인정보처리방침</a></li>
+      <li><a href="#">이용약관</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>
