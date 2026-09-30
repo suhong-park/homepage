@@ -31,6 +31,7 @@
 
 <h2 style="font-size:24px;font-weight:700;color:#990000;margin:48px 0 16px;padding-bottom:12px;border-bottom:1px solid #eee;">외부 LLM 모델 사용 — 장단점</h2>
 <p style="font-size:16px;line-height:1.8;color:#333;margin:0 0 20px;">외부 LLM(오픈소스 모델)을 폐쇄망 인프라 내에 설치하여 사용하는 경우, "초기 구축 비용은 들지만 보안과 운영 안정성을 완벽히 통제할 수 있다"는 특징을 가집니다. 기존의 클라우드 API(예: OpenAI ChatGPT API) 방식과 비교한 장단점은 다음과 같습니다.</p>
+<img src="/assets/img/img-kfo-external-llm.jpg" alt="외부 클라우드에서 보안 게이트를 거쳐 사내 서버로" style="display:block;width:100%;max-width:560px;margin:0 auto 28px;border-radius:12px;">
 <h3 style="font-size:18px;font-weight:700;margin:0 0 10px;">장점</h3>
 <ul style="font-size:15.5px;line-height:2;color:#333;margin:0 0 20px;padding-left:20px;">
 <li>완벽한 데이터 보안: 외부 유출 완전 차단으로 규제 준수형 산업(금융/공공/의료) 최적화</li>
@@ -56,6 +57,7 @@
 
 <h2 style="font-size:24px;font-weight:700;color:#990000;margin:48px 0 16px;padding-bottom:12px;border-bottom:1px solid #eee;">바이브코딩 베이스 에이전트 상용화</h2>
 <p style="font-size:16px;line-height:1.8;color:#333;margin:0 0 20px;">외부의 로우코드(Low-Code) 플랫폼(예: Flowise, Langflow, Dify)이나 바이브코딩(자연어 지시문만으로 AI가 코드를 짜주는 개발 방식)으로 만든 AI 에이전트를 폐쇄망 내부로 가져와 사용할 수 있는 환경을 제공합니다.</p>
+<img src="/assets/img/img-kfo-vibecoding.jpg" alt="여러 문서를 체크리스트로 정리해 담당자가 승인하는 과정" style="display:block;width:100%;max-width:560px;margin:0 auto 28px;border-radius:12px;">
 <h3 style="font-size:18px;font-weight:700;margin:0 0 8px;">코드로 변환하여 독립 실행형으로 패키징</h3>
 <p style="font-size:15.5px;line-height:1.8;color:#333;margin:0 0 18px;">바이브코딩(Cursor, v0, Lovable 등)이나 고급 로우코드 툴은 자연어로 만든 에이전트를 Python·JavaScript 코드로 변환해 줍니다. 필요한 라이브러리(LangChain, LlamaIndex 등)와 함께 Docker 이미지로 패키징하여 내부망 서버에 배포하면, 특정 플랫폼에 종속되지 않고 사내 인프라에서 가볍고 빠르게 독립 구동할 수 있습니다.</p>
 <h3 style="font-size:18px;font-weight:700;margin:0 0 8px;">'프롬프트 및 시스템 지시문'만 추출해 재활용</h3>
@@ -78,12 +80,14 @@
 <p style="font-size:15.5px;line-height:1.8;color:#333;margin:0 0 18px;">서드파티 앱들이 우리 AI 플랫폼에 쉽게 접속해서 명령을 내릴 수 있도록 표준화된 API 엔드포인트를 열어줍니다. 챗GPT(OpenAI) 규격과 똑같은 형태의 대화형 API를 제공해, 챗GPT 연동 기능을 탑재한 대부분의 서드파티 앱과 곧바로 호환됩니다.</p>
 <h3 style="font-size:18px;font-weight:700;margin:0 0 8px;">AI 게이트웨이 구축</h3>
 <p style="font-size:15.5px;line-height:1.8;color:#333;margin:0 0 18px;">여러 서드파티 앱이 동시에 AI를 호출할 때, 서드파티 앱과 AI 플랫폼 사이에 AI 게이트웨이를 배치해 교통정리를 하고 보안을 강화하는 중간 관리자 역할을 합니다. 무리한 호출로 시스템이 멈추는 것을 방지(호출 속도 제한)하고, 앱별 사용량을 체크해 비용을 정산하며, 민감한 정보를 AI에 전달하기 전 마스킹하는 보안 역할도 합니다.</p>
+<img src="/assets/img/img-kfo-gateway.jpg" alt="AI 게이트웨이 — Model Gateway, Permission Control, Audit Log" style="display:block;width:100%;max-width:480px;margin:0 auto 28px;border-radius:12px;">
 <h3 style="font-size:18px;font-weight:700;margin:0 0 8px;">AI 에이전트의 '도구 사용' 기능 활성화</h3>
 <p style="font-size:15.5px;line-height:1.8;color:#333;margin:0 0 18px;">AI가 서드파티 앱의 기능을 직접 조작하고 데이터를 가져오도록 호환시키는 방법입니다. 사용자가 "ERP 시스템에서 지난달 매출 보고서 가져와서 요약해 줘"라고 말하면, AI가 스스로 ERP 앱의 API를 호출해 데이터를 읽어온 뒤 요약본을 만들어 줍니다. 최근에는 오픈AI가 주도하는 MCP 표준을 활용해 외부 앱의 데이터 컨텍스트를 동적으로 가져오는 방식이 주목받고 있습니다.</p>
 <h3 style="font-size:18px;font-weight:700;margin:0 0 8px;">웹훅(Webhook) 기반의 이벤트 연동</h3>
 <p style="font-size:15.5px;line-height:1.8;color:#333;margin:0;">서드파티 앱에서 특정 이벤트가 발생했을 때, AI가 알림(웹훅)을 받아 자동으로 작업을 시작합니다. 실시간 대기 상태로 자원을 낭비하지 않고 일이 생겼을 때만 AI가 깨어나 작동하므로 효율적입니다. 예를 들어 CRM에 외국인 고객의 문의 글이 등록되면, 즉시 AI 플랫폼으로 전달되어 실시간 한국어 번역 및 답변 초안을 작성해 저장합니다.</p>
 
 <h2 style="font-size:24px;font-weight:700;color:#990000;margin:48px 0 16px;padding-bottom:12px;border-bottom:1px solid #eee;">RAG 및 DeepRAG 지원</h2>
+<img src="/assets/img/img-kfo-deeprag.jpg" alt="문서를 깊이 들여다보는 AI 추론" style="display:block;width:100%;max-width:480px;margin:0 auto 28px;border-radius:12px;">
 <p style="font-size:16px;line-height:1.8;color:#333;margin:0 0 14px;">기업이 AI를 업무에 활용할 때, 정확한 정보 제공을 위한 핵심 기술로 RAG(Retrieval-Augmented Generation)가 주목받고 있습니다. 하지만 단순 조회를 넘어 심층적인 분석과 다단계 추론이 필요할 때는 기존 구조의 한계가 드러나며, 이를 진화시킨 기술이 바로 DeepRAG입니다.</p>
 <p style="font-size:16px;line-height:1.8;color:#333;margin:0 0 14px;">기존의 일반 RAG는 사내 문서를 잘 찾아 주긴 했지만, "A 보고서의 내용과 B 매뉴얼의 내용을 합쳐서 인사이트를 도출해줘" 같은 복잡한 요구를 하면 엉뚱한 답을 하거나(환각 현상), 둘 중 하나의 정보만 가져오는 한계가 있었습니다. 최근 유행하는 DeepSeek-R1이나 OpenAI o1/o3 같은 '추론형 AI' 기술이 RAG와 결합되면서, AI가 답변을 내기 전에 내부적으로 '생각 단계'를 거치게 만든 것이 바로 DeepRAG입니다.</p>
 <p style="font-size:16px;line-height:1.8;color:#333;margin:0;">단순히 "서류 창고에서 파일 좀 찾아줘" 할 때는 기존 RAG가 가성비가 가장 좋고, "이 수많은 서류들을 분석해서 모순점을 찾고 해결책 보고서를 써줘" 할 때는 DeepRAG 방식을 도입해야 합니다.</p>
