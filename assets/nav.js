@@ -29,10 +29,17 @@
     });
   });
 
-  // Chevron / touch: toggle on click. Category links have no href (they're
-  // labels, not destinations) and visually overlap the small chevron icon,
-  // so bind the same handler to both — whichever the user actually taps.
-  document.querySelectorAll('.j10yRb, .mBHtvb, a[aria-haspopup="true"]').forEach(function (chevron) {
+  // Chevron / touch: toggle on click. Pure category labels (no href —
+  // they're not a destination, just a group heading) visually overlap the
+  // small chevron icon, so bind the same handler to both for those. Items
+  // that ARE real pages (e.g. Key Feature Overview, which has its own
+  // content AND a nested submenu) keep their href clickable; only their
+  // dedicated arrow icon (.j10yRb) toggles the submenu for those.
+  var toggles = Array.prototype.slice.call(document.querySelectorAll('.j10yRb, .mBHtvb'))
+    .concat(Array.prototype.slice.call(document.querySelectorAll('a[aria-haspopup="true"]')).filter(function (a) {
+      return !a.getAttribute('href');
+    }));
+  toggles.forEach(function (chevron) {
     chevron.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
