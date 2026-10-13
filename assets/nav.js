@@ -1,7 +1,13 @@
 (function () {
   function closeAllExcept(exceptEl) {
     document.querySelectorAll('.oGuwee').forEach(function (sub) {
-      if (sub !== exceptEl) sub.style.display = 'none';
+      if (sub === exceptEl) return;
+      // Leave ancestor submenus open: a nested item (e.g. Key Feature
+      // Overview > 그래프DB) lives inside its parent's .oGuwee, so closing
+      // every submenu but the nested one would also hide the parent that
+      // contains it, collapsing the whole dropdown instead of drilling in.
+      if (exceptEl && sub.contains(exceptEl)) return;
+      sub.style.display = 'none';
     });
   }
 
