@@ -8,8 +8,11 @@
 #cw-home-case .cw-hc-inner{
   display:flex;align-items:center;gap:32px;width:100%;
 }
+#cw-home-case .cw-hc-text{
+  flex:0 0 35%;max-width:35%;
+}
 #cw-home-case .cw-hc-video{
-  flex:0 0 60%;max-width:60%;
+  flex:1;
 }
 #cw-home-case .cw-hc-video-ratio{
   position:relative;width:100%;padding-top:56.25%;
@@ -17,9 +20,6 @@
 }
 #cw-home-case .cw-hc-video-ratio iframe{
   position:absolute;top:0;left:0;width:100%;height:100%;border:0;
-}
-#cw-home-case .cw-hc-text{
-  flex:1;
 }
 #cw-home-case .cw-hc-label{
   font-family:Lato,Arial,sans-serif;font-size:13px;color:#444;
@@ -41,23 +41,23 @@
 #cw-home-case .cw-hc-btn:hover{background:#6b0839;}
 @media(max-width:700px){
   #cw-home-case .cw-hc-inner{flex-direction:column;gap:20px;}
-  #cw-home-case .cw-hc-video{flex:none;max-width:100%;width:100%;}
+  #cw-home-case .cw-hc-text{flex:none;max-width:100%;width:100%;}
   #cw-home-case .cw-hc-title{font-size:28px;}
 }
 </style>
 <div class="cw-hc-inner">
+  <div class="cw-hc-text">
+    <p class="cw-hc-label">구축사례</p>
+    <p class="cw-hc-title">캐드 생성<br>AI 에이전트</p>
+    <p class="cw-hc-desc">절삭 수율을 극대화 합니다.</p>
+    <a href="/case/구축사례/" class="cw-hc-btn">더보기</a>
+  </div>
   <div class="cw-hc-video">
     <div class="cw-hc-video-ratio">
       <iframe src="https://www.youtube.com/embed/eELOuTYEjvU"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen></iframe>
     </div>
-  </div>
-  <div class="cw-hc-text">
-    <p class="cw-hc-label">구축사례</p>
-    <p class="cw-hc-title">캐드 생성<br>AI 에이전트</p>
-    <p class="cw-hc-desc">절삭 수율을 극대화 합니다.</p>
-    <a href="/case/구축사례/" class="cw-hc-btn">더보기</a>
   </div>
 </div>
 </div>
