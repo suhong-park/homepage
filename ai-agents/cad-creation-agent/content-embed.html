@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif; color: #1a1a1a; line-height: 1.7; }
+
+  section { padding: 80px 24px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 13px; font-weight: 600; color: #2563eb; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .section-title { font-size: 36px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
+  .section-desc { font-size: 16px; color: #6b7280; max-width: 600px; margin-bottom: 48px; }
+
+  /* Features */
+  .features { background: #f9fafb; }
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .feature-card { background: #fff; border-radius: 12px; padding: 32px; border: 1px solid #e5e7eb; transition: all 0.3s; }
+  .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); border-color: #2563eb; }
+  .feature-icon { width: 48px; height: 48px; background: linear-gradient(135deg, #2563eb, #7c3aed); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+  .feature-icon svg { width: 24px; height: 24px; fill: #fff; }
+  .feature-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+  .feature-card p { font-size: 14px; color: #6b7280; line-height: 1.7; }
+
+  /* Workflow */
+  .workflow-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 48px; }
+  .step { text-align: center; position: relative; }
+  .step-num { width: 48px; height: 48px; background: #2563eb; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; margin: 0 auto 16px; }
+  .step h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .step p { font-size: 13px; color: #6b7280; }
+  .step::after { content: '→'; position: absolute; right: -12px; top: 18px; font-size: 20px; color: #9ca3af; }
+  .step:last-child::after { display: none; }
+
+  /* Stats */
+  .stats { background: #0f172a; color: #fff; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: center; }
+  .stat-num { font-size: 48px; font-weight: 800; background: linear-gradient(90deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+  .stat-label { font-size: 14px; color: #94a3b8; }
+
+  /* Use Cases */
+  .cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .case-card { background: #f9fafb; border-radius: 12px; padding: 32px; border: 1px solid #e5e7eb; }
+  .case-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .case-card h3 .case-icon { font-size: 24px; }
+  .case-card p { font-size: 14px; color: #6b7280; line-height: 1.7; }
+  .case-tags { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+  .case-tag { background: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 500; }
+
+  @media (max-width: 768px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .workflow-steps { grid-template-columns: 1fr; gap: 24px; }
+    .step::after { display: none; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .cases-grid { grid-template-columns: 1fr; }
+    .section-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Features -->
+<section class="features" id="features">
+  <div class="section-inner">
+    <div class="section-label">Core Features</div>
+    <h2 class="section-title">AI가 만드는 원판 배치의 혁신</h2>
+    <p class="section-desc">수작업으로 몇 시간 걸리던 원판 배치 작업을 AI가 몇 분 안에 처리합니다.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12h8v2H8zm0 4h8v2H8z"/></svg>
+        </div>
+        <h3>발주서 자동 인식</h3>
+        <p>발주서 이미지나 사진을 올리면 AI가 부품명, 수량, 원판 치수를 자동으로 읽어옵니다. 수동 입력이 필요 없습니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>형상 자동 검증</h3>
+        <p>AI가 읽은 부품 형상을 도면과 겹쳐 자동으로 검증합니다. 치수 불일치, 모양 어긋남을 빨간색으로 표시해 줍니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <h3>최적 배치 알고리즘</h3>
+        <p>수천 가지 배치 조합 중 수율을 최대화하는 최적해를 계산합니다. 자투리를 최소화하고 원판당 최대 부품을 배치합니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3>사람-AI 협업 검증</h3>
+        <p>AI가 제안한 모든 결과는 사람이 최종 확인합니다. 불합격 카드에는 어디가 틀렸는지 빨간 상자로 표시해 줍니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <h3>자투리 원판 분석</h3>
+        <p>이미 사용한 원판의 사진을 올리면 남은 소재를 분석해 추가 배치가 가능합니다. 소재 낭비를 줄입니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+        </div>
+        <h3>CAD 파일 즉시 출력</h3>
+        <p>배치가 완료되면 DXF 파일을 즉시 다운로드할 수 있습니다. AutoCAD 2010 형식으로 호환성 문제를 해결했습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Workflow -->
+<section id="workflow">
+  <div class="section-inner">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">5단계로 완성되는 원판 배치</h2>
+    <p class="section-desc">복잡한 공정이 필요 없습니다. 이미지를 올리고 확인만 하면 됩니다.</p>
+    <div class="workflow-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>발주서 업로드</h4>
+        <p>발주서 이미지나<br>사진을 올립니다</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>원판 확인</h4>
+        <p>AI가 원판 치수를<br>자동으로 읽습니다</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>부품 입력</h4>
+        <p>부품 목록과<br>도면을 확인합니다</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>형상 검증</h4>
+        <p>AI가 그린 형상을<br>도면과 대조합니다</p>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <h4>배치 &amp; 출력</h4>
+        <p>최적 배치를 계산하고<br>DXF 파일을 받습니다</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="stats" id="stats">
+  <div class="section-inner">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-num">90%</div>
+        <div class="stat-label">수작업 대비<br>시간 절감</div>
+      </div>
+      <div>
+        <div class="stat-num">5%</div>
+        <div class="stat-label">소재 수율<br>개선 효과</div>
+      </div>
+      <div>
+        <div class="stat-num">10초</div>
+        <div class="stat-label">발주서<br>인식 시간</div>
+      </div>
+      <div>
+        <div class="stat-num">0</div>
+        <div class="stat-label">겹침 오류<br>보장</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Use Cases -->
+<section id="cases">
+  <div class="section-inner">
+    <div class="section-label">Use Cases</div>
+    <h2 class="section-title">어떤 산업에서 활용되나요</h2>
+    <p class="section-desc">원형 소재를 절단하는 모든 공정에서 효과를 발휘합니다.</p>
+    <div class="cases-grid">
+      <div class="case-card">
+        <h3><span class="case-icon">⚙️</span> 금속 가공 산업</h3>
+        <p>원판 소재에서 부품 절단 배치를 최적화합니다. 와이어 컷, 플라즈마, 레이저 절단 가공에 바로 활용 가능합니다. 자투리 원판 분석으로 소재 비용을 절감합니다.</p>
+        <div class="case-tags">
+          <span class="case-tag">와이어 컷</span>
+          <span class="case-tag">플라즈마 절단</span>
+          <span class="case-tag">레이저 절단</span>
+        </div>
+      </div>
+      <div class="case-card">
+        <h3><span class="case-icon">🔩</span> 금속 부품 제조</h3>
+        <p>볼트, 너트, 와셔 등 표준 부품부터 맞춤형 부품까지 원판 배치 작업을 자동화합니다. 이등변삼각형 등 특수 형상도 진성 꼴로 최적 배치합니다.</p>
+        <div class="case-tags">
+          <span class="case-tag">표준 부품</span>
+          <span class="case-tag">맞춤 부품</span>
+          <span class="case-tag">NC 가공</span>
+        </div>
+      </div>
+      <div class="case-card">
+        <h3><span class="case-icon">🏭</span> 판금 가공</h3>
+        <p>두께 1.6T부터 다양한 판재의 원판 배치를 처리합니다. 발주서 한 장으로 DXF 파일을 생성해 가공 준비 시간을 대폭 단축합니다.</p>
+        <div class="case-tags">
+          <span class="case-tag">판금</span>
+          <span class="case-tag">용접 부품</span>
+          <span class="case-tag">도면 자동 생성</span>
+        </div>
+      </div>
+      <div class="case-card">
+        <h3><span class="case-icon">📐</span> 설계·생산 통합</h3>
+        <p>도면 읽기 → 형상 검증 → 배치 계산 → DXF 출력까지 전 과정을 AI가 처리합니다. 설계 변경 시 재배치 시간도 최소화합니다.</p>
+        <div class="case-tags">
+          <span class="case-tag">CAD 연동</span>
+          <span class="case-tag">자동 도면 생성</span>
+          <span class="case-tag">변경 대응</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Report height to parent for auto-resize
+  function sendHeight() {
+    var h = document.documentElement.scrollHeight;
+    window.parent.postMessage({ type: 'embedHeight', height: h }, '*');
+  }
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+  // Also send after images/fonts load
+  setTimeout(sendHeight, 500);
+</script>
+</body>
+</html>
